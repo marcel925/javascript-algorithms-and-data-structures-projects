@@ -23,10 +23,7 @@ function telephoneCheck(str) {
 
   var array = str.split("");
 
-  var regexNumbers = (/[0-9]/);
-  var filteredNumbers = array.filter(function(val){
-    return regexNumbers.test(val);
-  });
+  var filteredNumbers = array.filter((val) => /[0-9]/.test(val));
 
   if (filteredNumbers.length < 10 || filteredNumbers.length > 11) {
     return false;
@@ -38,27 +35,17 @@ function telephoneCheck(str) {
     }
   }
 
-  //The input may not contain anything other than digits, brackets, dashes or spaces. The code belows tests for invalid characters
+  //The input may not contain anything other than digits, brackets, dashes or spaces. The code belows tests for that
 
-  var arrayNoSpaces = array.filter((item) => item != " ");
+  var arrayNoSpaces = array.filter((val) => val != " ");
 
-  var regexInvalid = (/[^-()0-9]/);
+  var filteredInvalid = arrayNoSpaces.filter((val) => /[^-()0-9]/.test(val));
 
-  var filteredInvalid = arrayNoSpaces.filter(function(val){
-    return regexInvalid.test(val);
-  });
-
-  if (filteredInvalid.length > 0) {
-    return false;
-  }
+  if (filteredInvalid.length > 0) { return false; }
 
   //Use array.filter to cut input array to only the brackets. If result is not () or empty, then it's invalid
 
-  var regexBrackets = (/[()]/);
-
-  var filteredBrackets = array.filter(function(val){
-    return regexBrackets.test(val);
-  });
+  var filteredBrackets = array.filter((val) => /[()]/.test(val));
 
   var filteredBracketsString = filteredBrackets.join("");
 
@@ -68,15 +55,9 @@ function telephoneCheck(str) {
 
   //use array.filter to cut input to only the dashes (-). If there are more than 2 dashes, then it's invalid
 
-  var regexDashes = (/[-]/);
+  var filteredDashes = array.filter((val) => /[-]/.test(val));
 
-  var filteredDashes = array.filter(function(val){
-    return regexDashes.test(val);
-  });
-
-  if (filteredDashes.length > 2) {
-    return false;
-  }
+  if (filteredDashes.length > 2) { return false; }
 
   //A closing bracket ) may not be present in the first 4 or last 7 characters. The for loops below test for that
 
